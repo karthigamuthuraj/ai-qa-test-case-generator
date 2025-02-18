@@ -3,6 +3,8 @@
 
 This repository contains an AI-powered application that generates detailed test cases from user stories using **Autogen Agents** and **Streamlit**. The app helps developers automate the process of writing test cases for functional, regression, integration, performance, and security testing, making it easier to ensure comprehensive software quality.
 
+![App Demo](AI_TEST_CASE.PNG)
+
 ## Features
 
 - **Generates detailed test cases** from a simple user story.
@@ -85,14 +87,6 @@ streamlit run app.py
 - **Python**: The programming language used for this app.
 - **Pandas**: For data manipulation and CSV export.
 - **simplejson**: For JSON parsing and handling.
-
-## Contributing
-
-Feel free to open issues or create pull requests to improve this project. If you'd like to contribute, please fork this repository and submit a pull request with your changes.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgements
 
