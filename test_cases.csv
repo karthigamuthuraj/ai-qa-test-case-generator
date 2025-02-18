@@ -1,0 +1,11 @@
+ID,Summary,Test Type,Priority,Component,Step Description,Expected Result,Actual Result,Pass/Fail Status
+TC-001,Valid login with valid credentials,Functional,High,Login Module,"1. Enter valid username and password, 2. Click on the Login button",Successful login and redirect to dashboard,,
+TC-002,Invalid login with incorrect credentials,Functional,High,Login Module,"1. Enter invalid username and password, 2. Click on the Login button",Failed login and display error message,,
+TC-003,Login with empty fields,Functional,High,Login Module,"1. Leave both username and password fields blank, 2. Click on the Login button",Failed login and display error message,,
+TC-004,Login with null values,Functional,High,Login Module,"1. Enter null value in username and password fields, 2. Click on the Login button",Failed login and display error message,,
+TC-005,Login with special characters,Functional,High,Login Module,"1. Enter username and password with special characters, 2. Click on the Login button",Successful login and redirect to dashboard,,
+TC-006,Edge case: Large username,Integration,Medium,Login Module,"1. Enter a large string as the username, 2. Click on the Login button",Successful login and redirect to dashboard without any issues,,
+TC-007,Edge case: Large password,Integration,Medium,Login Module,"1. Enter a large string as the password, 2. Click on the Login button",Successful login and redirect to dashboard without any issues,,
+TC-008,Edge case: Valid username with invalid password,Integration,Medium,Login Module,"1. Enter a valid username but an invalid password, 2. Click on the Login button",Failed login and display error message,,
+TC-009,Negative test case: Valid username with valid password,Security,Low,Login Module,"1. Enter a valid username and a valid password, 2. Click on the Login button",Successful login and redirect to dashboard without any security issues,,
+TC-010,Performance test: Multiple concurrent logins,Performance,Medium,Login Module,"1. Open multiple browser tabs and perform login simultaneously, 2. Monitor system performance",System handles multiple concurrent logins without any performance issues,,
