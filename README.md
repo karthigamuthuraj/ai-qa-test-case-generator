@@ -69,7 +69,7 @@ pip install -r requirements.txt
 5. Run the Streamlit app:
 
 ```bash
-streamlit run app.py
+streamlit run QA_Agent_Llama.py
 ```
 
 ## Usage
