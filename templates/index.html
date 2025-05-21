@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered QA Test Case Generator</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f9; color: #333; }
+        .container { max-width: 800px; margin: auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; font-size: 24px; }
+        h3 { margin-top: 30px; color: #555; }
+        textarea { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; min-height: 80px; }
+        input[type="submit"] { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        input[type="submit"]:hover { background-color: #0056b3; }
+        .sample-stories { background-color: #e9ecef; padding: 10px; border-radius: 4px; margin-bottom: 20px; }
+        .sample-stories pre { white-space: pre-wrap; word-wrap: break-word; }
+        .results-section { margin-top: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #007bff; color: white; }
+        .download-link { display: block; margin-top: 20px; text-align: center; }
+        .error { color: red; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 AI-Powered QA Test Case Generator</h1>
+
+        <h3>📜 Sample User Stories (Copy-Paste)</h3>
+        <div class="sample-stories">
+            <pre>
+User Login => As a user, I want to log in so that I can access my account.
+
+Password Reset => As a user, I want to reset my password so that I can regain access to my account if I forget my credentials.
+
+Product Checkout => As a customer, I want to add products to my cart and proceed to checkout so that I can purchase items online.
+
+Profile Update => As a user, I want to update my profile information so that I can keep my account details up to date.
+
+Search Functionality => As a user, I want to search for products by name or category so that I can quickly find what I need.
+            </pre>
+        </div>
+
+        <p>Enter a user story, and the AI will generate detailed test cases for you!</p>
+
+        <form method="POST" action="{{ url_for('home') }}">
+            <textarea name="user_story" placeholder="As a user, I want to log in so that I can access my account.">{{ user_story_text or '' }}</textarea>
+            <input type="submit" value="🚀 Generate Test Cases">
+        </form>
+
+        {% if error_message %}
+            <p class="error">{{ error_message }}</p>
+        {% endif %}
+
+        {% if test_cases %}
+        <div class="results-section">
+            <h3>Generated Test Cases</h3>
+            <table>
+                <thead>
+                    <tr>
+                        {% for key in test_cases[0].keys() %}
+                            <th>{{ key }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in test_cases %}
+                    <tr>
+                        {% for value in row.values() %}
+                            <td>{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="download-link">
+                <a href="{{ url_for('download_csv') }}">📥 Download Test Cases as CSV</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
