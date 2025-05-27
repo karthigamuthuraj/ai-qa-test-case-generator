@@ -104,32 +104,33 @@ def generate_test_cases(story):
 
 
 # Function to Extract JSON from AI Response
-
 def extract_json_from_response(response):
-    raw_response = str(response.chat_history)
-    raw_response = raw_response.replace("\\n", "\n")
-   
-    
-    # Find all JSON code blocks inside triple backticks
-    matches = re.findall(r'```(?:json)?\n(.*?)\n```', raw_response, re.DOTALL)
-    
-    for match in matches:
-        match = match.strip()  # Normalize the JSON format
-        
-        # Clean up any unnecessary whitespace or newlines within the JSON string
-        cleaned_json = match.replace("\n", "").replace("\t", "")
-        cleaned_json = cleaned_json.replace("\\", "\\\\")  # Escape backslashes properly
-        
-        try:
-            parsed_json = json.loads(cleaned_json)
-           
-            return parsed_json  # Return the first valid JSON found
-        except json.JSONDecodeError:
-            print("❌ Failed to parse JSON:", cleaned_json)  # Print the failed block for debugging
-            continue  # Skip and try the next match
-    
-    print("❌ Failed to parse AI response as JSON.")
+    chat_messages = response.chat_history
+
+    # Look for the user response from the AI agent (role == 'user' or 'assistant')
+    for message in reversed(chat_messages):
+        if 'content' in message and isinstance(message['content'], str):
+            possible_json = message['content'].strip()
+
+            # Try parsing directly
+            try:
+                return json.loads(possible_json)
+            except json.JSONDecodeError:
+                pass  # fallback to regex below
+
+            # Try regex fallback if direct load fails
+            match = re.search(r'(\[\s*{.*?}\s*\])', possible_json, re.DOTALL)
+            if match:
+                try:
+                    return json.loads(match.group(1))
+                except json.JSONDecodeError as e:
+                    print("❌ JSON decode failed:", e)
+                    print("🔧 Problematic JSON Block:\n", match.group(1))
+                    return None
+
+    print("❌ No valid JSON found in chat history.")
     return None
+
 
 
 # Generate Button
